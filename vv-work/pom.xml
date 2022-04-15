@@ -12,6 +12,7 @@
     <artifactId>vv-work</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>vv-work</name>
+    <!--父工程-->
     <packaging>pom</packaging>
     <description>SpringCloud 协同工作平台</description>
 
@@ -21,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!--方便创建javaBean的一些方法-->
+        <!--lombok，方便创建Bean对象和日志操作-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -39,10 +40,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--热部署插件-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <!--alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
