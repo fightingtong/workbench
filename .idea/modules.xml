@@ -3,6 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/vv-work/vv-work.iml" filepath="$PROJECT_DIR$/vv-work/vv-work.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-api/work-api.iml" filepath="$PROJECT_DIR$/vv-work/work-api/work-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-gateway/work-gateway.iml" filepath="$PROJECT_DIR$/vv-work/work-gateway/work-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-service/work-service.iml" filepath="$PROJECT_DIR$/vv-work/work-service/work-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-util/work-util.iml" filepath="$PROJECT_DIR$/vv-work/work-util/work-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-web/work-web.iml" filepath="$PROJECT_DIR$/vv-work/work-web/work-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/workbench.iml" filepath="$PROJECT_DIR$/workbench.iml" />
     </modules>
   </component>
