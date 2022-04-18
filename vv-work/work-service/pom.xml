@@ -9,9 +9,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+    <modules>
+        <module>work-user-service</module>
+    </modules>
     <artifactId>work-service</artifactId>
     <description>
         所有微服务工程
     </description>
+
+    <dependencies>
+        <!--依赖 work-service-dependency-->
+        <dependency>
+            <groupId>com.vv</groupId>
+            <artifactId>work-service-dependency</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--依赖 work-common-->
+        <dependency>
+            <groupId>com.vv</groupId>
+            <artifactId>work-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

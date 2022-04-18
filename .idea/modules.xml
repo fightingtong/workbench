@@ -4,8 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/vv-work/vv-work.iml" filepath="$PROJECT_DIR$/vv-work/vv-work.iml" />
       <module fileurl="file://$PROJECT_DIR$/vv-work/work-api/work-api.iml" filepath="$PROJECT_DIR$/vv-work/work-api/work-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-util/work-common/work-common.iml" filepath="$PROJECT_DIR$/vv-work/work-util/work-common/work-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/vv-work/work-gateway/work-gateway.iml" filepath="$PROJECT_DIR$/vv-work/work-gateway/work-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/vv-work/work-service/work-service.iml" filepath="$PROJECT_DIR$/vv-work/work-service/work-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-util/work-service-dependency/work-service-dependency.iml" filepath="$PROJECT_DIR$/vv-work/work-util/work-service-dependency/work-service-dependency.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-api/work-user-api/work-user-api.iml" filepath="$PROJECT_DIR$/vv-work/work-api/work-user-api/work-user-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vv-work/work-service/work-user-service/work-user-service.iml" filepath="$PROJECT_DIR$/vv-work/work-service/work-user-service/work-user-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/vv-work/work-util/work-util.iml" filepath="$PROJECT_DIR$/vv-work/work-util/work-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/vv-work/work-web/work-web.iml" filepath="$PROJECT_DIR$/vv-work/work-web/work-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/workbench.iml" filepath="$PROJECT_DIR$/workbench.iml" />
