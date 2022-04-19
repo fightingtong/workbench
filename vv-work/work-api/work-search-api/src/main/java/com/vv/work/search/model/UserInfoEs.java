@@ -14,13 +14,13 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @date: 2022/4/18 18:11
  **/
 @Data
-@Document(indexName = "worksearch", type="userinfoes")
+@Document(indexName = "worksearch11", type="userinfoes")
 public class UserInfoEs {
     // 唯一标识符
     @Id
     private Integer id;
     // 用户名称
-    @Field(type = FieldType.Text, analyzer = "ik_smart", searchAnalyzer = "ik_smart")
+    @Field(type = FieldType.Text, analyzer = "pinyin_analyzer", searchAnalyzer = "pinyin_analyzer")
     private String name;
     // 年龄
     private Integer age;
