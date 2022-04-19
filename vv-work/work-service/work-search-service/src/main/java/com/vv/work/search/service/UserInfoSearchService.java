@@ -2,6 +2,8 @@ package com.vv.work.search.service;
 
 import com.vv.work.search.model.UserInfoEs;
 
+import java.util.Map;
+
 /**
  * @description:
  * @author: tonghp
@@ -12,4 +14,11 @@ public interface UserInfoSearchService {
     void add(UserInfoEs userInfoEs);
     //删除索引
     void del(String id);
+
+    /***
+     * 用户搜索
+     * @param searchMap
+     * @return
+     */
+    Map<String,Object> search(Map<String, Object> searchMap);
 }

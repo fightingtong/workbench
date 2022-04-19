@@ -6,6 +6,8 @@ import com.vv.work.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @description:
  * @author: tonghp
@@ -35,5 +37,14 @@ public class UserInfoSearchController {
     public RespResult del(@PathVariable("id")String id){
         userInfoSearchService.del(id);
         return RespResult.ok();
+    }
+
+    /****
+     * 商品搜索
+     */
+    @GetMapping
+    public RespResult<Map<String,Object>> search(@RequestParam Map<String,Object> searchMap){
+        Map<String,Object> result = userInfoSearchService.search(searchMap);
+        return RespResult.ok(result);
     }
 }
