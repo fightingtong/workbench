@@ -3,34 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>vv-work</artifactId>
+        <artifactId>work-service</artifactId>
         <groupId>com.vv</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>work-user-service</module>
-        <module>work-canal-service</module>
-        <module>work-search-service</module>
-    </modules>
-    <artifactId>work-service</artifactId>
+
+    <artifactId>work-canal-service</artifactId>
     <description>
-        所有微服务工程
+        Canal微服务
     </description>
 
     <dependencies>
-        <!--依赖 work-service-dependency-->
+        <!--springboot-canal快速构建依赖包-->
+        <dependency>
+            <groupId>top.javatool</groupId>
+            <artifactId>canal-spring-boot-starter</artifactId>
+            <version>1.2.1-RELEASE</version>
+        </dependency>
+
+        <!--依赖 work-user-api-->
         <dependency>
             <groupId>com.vv</groupId>
-            <artifactId>work-service-dependency</artifactId>
+            <artifactId>work-user-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--依赖 work-common-->
+        <!--依赖 work-search-api-->
         <dependency>
             <groupId>com.vv</groupId>
-            <artifactId>work-common</artifactId>
+            <artifactId>work-search-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

@@ -7,17 +7,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="work-common" />
-        <module name="work-service-dependency" />
-        <module name="work-user-service" />
+        <module name="work-search-service" />
         <module name="work-user-api" />
+        <module name="work-canal-service" />
+        <module name="work-common" />
+        <module name="work-user-service" />
+        <module name="work-service-dependency" />
+        <module name="work-search-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="vv-work" target="1.8" />
       <module name="work-api" target="1.8" />
+      <module name="work-canal-service" target="1.8" />
       <module name="work-common" target="1.8" />
       <module name="work-gateway" target="1.8" />
+      <module name="work-search-api" target="1.8" />
+      <module name="work-search-service" target="1.8" />
       <module name="work-service" target="1.8" />
       <module name="work-service-dependency" target="1.8" />
       <module name="work-user-api" target="1.8" />
@@ -29,8 +35,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="vv-work" options="-parameters" />
+      <module name="work-canal-service" options="-parameters" />
       <module name="work-common" options="-parameters" />
       <module name="work-gateway" options="-parameters" />
+      <module name="work-search-api" options="-parameters" />
+      <module name="work-search-service" options="-parameters" />
       <module name="work-service" options="-parameters" />
       <module name="work-service-dependency" options="-parameters" />
       <module name="work-user-api" options="-parameters" />
