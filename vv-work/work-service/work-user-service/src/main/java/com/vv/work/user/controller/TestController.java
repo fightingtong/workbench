@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import util.IKAnalyzerUtil;
 import util.Pinyin4jUtil;
+import util.SpellTool;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -41,4 +42,18 @@ public class TestController {
         System.out.println(str + " short pin yin ：" + pinyin);
         return RespResult.ok();
     }
+
+    @GetMapping("/spell")
+    public RespResult<String> spell(){
+        //long start = System.currentTimeMillis();
+        String spell = "woaibeijintiananmen";
+        spell = "tonghpeng";
+        String result = SpellTool.trimSpell(spell);
+        //long end = System.currentTimeMillis();
+        //System.out.println("用时:" + (end - start) + "毫秒");
+        System.out.println(result);
+        return RespResult.ok();
+    }
+
+
 }
