@@ -3,6 +3,7 @@ package com.vv.work.search.service.impl;
 import com.vv.work.search.mapper.UserInfoSearchMapper;
 import com.vv.work.search.model.UserInfoEs;
 import com.vv.work.search.service.UserInfoSearchService;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,7 +51,7 @@ public class UserInfoSearchServiceImpl implements UserInfoSearchService {
     @Override
     public Map<String, Object> search(Map<String, Object> searchMap) {
         //条件封装
-        NativeSearchQueryBuilder queryBuilder = queryBuilder(searchMap);
+        NativeSearchQueryBuilder queryBuilder = queryBuilder2(searchMap);
 
         //执行搜索
         Page<UserInfoEs> result = userInfoSearchMapper.search(queryBuilder.build());
@@ -79,6 +80,33 @@ public class UserInfoSearchServiceImpl implements UserInfoSearchService {
             Object keywords =searchMap.get("keywords");
             if(!StringUtils.isEmpty(keywords)){
                 queryBuilder.withQuery(QueryBuilders.matchPhraseQuery("name",keywords.toString()));
+            }
+        }
+        return queryBuilder;
+    }
+
+    /***
+     * 搜索多条件组装
+     */
+    private NativeSearchQueryBuilder queryBuilder2(Map<String,Object> searchMap){
+        //QueryBuilder构建
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
+        //条件判断
+        if(searchMap!=null && searchMap.size()>0){
+
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            //关键词
+            Object keywords =searchMap.get("keywords");
+            if(!StringUtils.isEmpty(keywords)){
+                boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("name",keywords.toString()));
+            }
+            Object category =searchMap.get("category");
+            if(!StringUtils.isEmpty(category)){
+                boolQueryBuilder.must(QueryBuilders.termQuery("category",category.toString()));
+            }
+            if(boolQueryBuilder.hasClauses()){
+                queryBuilder.withQuery(boolQueryBuilder);
             }
         }
         return queryBuilder;

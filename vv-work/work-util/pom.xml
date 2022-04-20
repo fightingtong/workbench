@@ -12,6 +12,7 @@
     <modules>
         <module>work-service-dependency</module>
         <module>work-common</module>
+        <module>work-analyzer</module>
     </modules>
     <artifactId>work-util</artifactId>
     <description>
