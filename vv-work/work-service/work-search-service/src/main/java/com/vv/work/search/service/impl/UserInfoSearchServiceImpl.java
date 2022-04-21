@@ -3,10 +3,18 @@ package com.vv.work.search.service.impl;
 import com.vv.work.search.mapper.UserInfoSearchMapper;
 import com.vv.work.search.model.UserInfoEs;
 import com.vv.work.search.service.UserInfoSearchService;
+import com.vv.work.search.util.HighlightResultMapper;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,7 +31,10 @@ import java.util.Map;
 @Service
 public class UserInfoSearchServiceImpl implements UserInfoSearchService {
     @Autowired
-    UserInfoSearchMapper userInfoSearchMapper;
+    private UserInfoSearchMapper userInfoSearchMapper;
+
+    @Autowired
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     /**
      * 单个导入ES
@@ -50,11 +61,22 @@ public class UserInfoSearchServiceImpl implements UserInfoSearchService {
      */
     @Override
     public Map<String, Object> search(Map<String, Object> searchMap) {
-        //条件封装
+        //构建搜索条件
         NativeSearchQueryBuilder queryBuilder = queryBuilder2(searchMap);
 
+        //1.设置高亮信息   关键词前（后）面的标签、设置高亮域
+        HighlightBuilder.Field field = new HighlightBuilder
+                .Field("name")  //根据指定的域进行高亮查询
+                .preTags("<span>")     //关键词高亮前缀
+                .postTags("</span>")   //高亮关键词后缀
+                .fragmentSize(100);     //碎片长度
+        queryBuilder.withHighlightFields(field);
+        // 2、将非高亮数据替换成高亮数据
+
         //执行搜索
-        Page<UserInfoEs> result = userInfoSearchMapper.search(queryBuilder.build());
+        //Page<UserInfoEs> result = userInfoSearchMapper.search(queryBuilder.build());
+        // 为实现高亮，修改执行搜索的方式
+        AggregatedPage<UserInfoEs> result = elasticsearchRestTemplate.queryForPage(queryBuilder.build(), UserInfoEs.class, new HighlightResultMapper());
 
         //结果集
         List<UserInfoEs> list = result.getContent();
@@ -105,9 +127,14 @@ public class UserInfoSearchServiceImpl implements UserInfoSearchService {
             if(!StringUtils.isEmpty(category)){
                 boolQueryBuilder.must(QueryBuilders.termQuery("category",category.toString()));
             }
+            // 按score排序，需要使用 functionScoreQuery进行包装
+            FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery(boolQueryBuilder);
             if(boolQueryBuilder.hasClauses()){
-                queryBuilder.withQuery(boolQueryBuilder);
+                queryBuilder.withQuery(functionScoreQueryBuilder);
             }
+            queryBuilder.withSort(SortBuilders.scoreSort());
+            // 分页， 取前20条
+            queryBuilder.withPageable(PageRequest.of(0, 20));
         }
         return queryBuilder;
     }

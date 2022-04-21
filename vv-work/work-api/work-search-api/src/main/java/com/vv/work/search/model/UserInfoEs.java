@@ -14,7 +14,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @date: 2022/4/18 18:11
  **/
 @Data
-@Document(indexName = "worksearch4", type="userinfoes")
+@Document(indexName = "worksearch5", type="userinfoes")
 public class UserInfoEs {
     // 唯一标识符
     @Id
