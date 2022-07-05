@@ -52,6 +52,9 @@ public class UserInfoSearchServiceImpl implements UserInfoSearchService {
     @Override
     public void del(String id) {
         userInfoSearchMapper.deleteById(id);
+        //UserInfoEs userInfoEs = new UserInfoEs();
+        //userInfoEs.setId(11);
+        //userInfoSearchMapper.delete(userInfoEs);
     }
 
     /***

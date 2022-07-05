@@ -1,11 +1,12 @@
 package com.vv.work.user.controller;
 
+import com.vv.work.jwt.service.JWTTokenService;
 import com.vv.work.user.model.UserInfo;
 import com.vv.work.util.RespResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import util.IKAnalyzerUtil;
 import util.Pinyin4jUtil;
 import util.SpellTool;
@@ -21,8 +22,12 @@ import java.util.List;
  * @date: 2022/4/20 12:28
  **/
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/test"+ "${xx.yy:123}")
 public class TestController {
+
+    @Value("xxx_" + "${xx.yy:123}")
+    private String testStr;
+
 
     @GetMapping("/ik")
     public RespResult<String> ik() throws IOException {
@@ -55,5 +60,16 @@ public class TestController {
         return RespResult.ok();
     }
 
+
+
+    /**
+     * test xx
+     * @return
+     */
+    @GetMapping("/xx001")
+    public String xxJwt(){
+        String xx = testStr;
+        return xx;
+    }
 
 }
