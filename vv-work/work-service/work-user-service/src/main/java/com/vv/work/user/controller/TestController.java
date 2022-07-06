@@ -1,19 +1,15 @@
 package com.vv.work.user.controller;
 
-import com.vv.work.jwt.service.JWTTokenService;
-import com.vv.work.user.model.UserInfo;
 import com.vv.work.util.RespResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import util.IKAnalyzerUtil;
 import util.Pinyin4jUtil;
 import util.SpellTool;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
