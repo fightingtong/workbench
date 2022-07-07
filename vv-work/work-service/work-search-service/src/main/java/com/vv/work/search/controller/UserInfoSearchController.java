@@ -1,6 +1,8 @@
 package com.vv.work.search.controller;
 
+import com.vv.work.search.model.UserEmployeeRelationDTO;
 import com.vv.work.search.model.UserInfoEs;
+import com.vv.work.search.service.UserEmployeeRelationSearchService;
 import com.vv.work.search.service.UserInfoSearchService;
 import com.vv.work.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class UserInfoSearchController {
     @Autowired
     private UserInfoSearchService userInfoSearchService;
+    @Autowired
+    private UserEmployeeRelationSearchService userEmployeeRelationSearchService;
 
     /****
      * 单个商品导入
@@ -46,5 +50,11 @@ public class UserInfoSearchController {
     public RespResult<Map<String,Object>> search(@RequestParam Map<String,Object> searchMap){
         Map<String,Object> result = userInfoSearchService.search(searchMap);
         return RespResult.ok(result);
+    }
+
+    @PostMapping(value = "/add/user")
+    public RespResult add(@RequestBody UserEmployeeRelationDTO dto){
+        userEmployeeRelationSearchService.add(dto);
+        return RespResult.ok();
     }
 }
