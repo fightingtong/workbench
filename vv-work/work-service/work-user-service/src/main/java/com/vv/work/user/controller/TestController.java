@@ -1,7 +1,14 @@
 package com.vv.work.user.controller;
 
 import com.vv.work.util.RespResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +17,10 @@ import util.Pinyin4jUtil;
 import util.SpellTool;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -68,4 +78,46 @@ public class TestController {
         return xx;
     }
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @GetMapping("/test/clear")
+    public String testClear(String part) {
+        part = StringUtils.isEmpty(part) ? "part" : part;
+        Map keyMap = new HashMap();
+        String keyPrefix = "vv-ucc:global:test:" + part + ":";
+        for (int i = 0; i < 10000; i++) {
+            String key = keyPrefix + i;
+            System.out.println(key);
+            keyMap.put(key, i);
+        }
+        redisTemplate.opsForValue().multiSet(keyMap);
+        List<String> keys1 = scanPatternKeysExecute(keyPrefix + "*", 2000);
+        if (!CollectionUtils.isEmpty(keys1)) {
+            redisTemplate.delete(keys1);
+        }
+        return "ok";
+    }
+
+    /**
+     * 遍历通配keys
+     *
+     * @param patternKey
+     * @param count
+     * @return
+     */
+    public List<String> scanPatternKeysExecute(String patternKey, long count) {
+        // scan操作
+        List<String> keys = new ArrayList<>();
+        redisTemplate.execute((RedisCallback) conn -> {
+            ScanOptions options = ScanOptions.scanOptions().match(patternKey).count(count).build();
+            Cursor<byte[]> cursor = conn.scan(options);
+            while (cursor.hasNext()) {
+                byte[] keyAtr = cursor.next();
+                keys.add(new String(keyAtr));
+            }
+            return null;
+        });
+        return keys;
+    }
 }

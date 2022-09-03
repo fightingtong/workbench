@@ -3,6 +3,16 @@ server:
 spring:
   application:
     name: work-user
+  redis:
+    database: 0
+    host: 172.16.6.25
+    jedis:
+      pool:
+        max-idle: 300
+        max-wait: 30s
+    port: 6379
+    password: 123456
+    timeout: 5000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/work_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
