@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -39,6 +41,19 @@ public class RedisConfig {
         mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         serializer.setObjectMapper(mapper);
         return serializer;
+    }
+
+    /**
+     * 加载批量删除Redis的脚本
+     */
+    @Bean
+    public DefaultRedisScript loadScanDelKeyRedisScript() {
+        DefaultRedisScript redisScript = new DefaultRedisScript();
+        //设置lua脚本
+        redisScript.setLocation(new ClassPathResource("redis/scan_del_key.lua"));
+        //设置返回类型
+        redisScript.setResultType(Long.class);
+        return redisScript;
     }
 
 }
