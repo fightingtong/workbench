@@ -1,6 +1,7 @@
 package com.vv.work.user.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.vv.work.user.mapper.UserInfoMapper;
 import com.vv.work.user.model.UserInfo;
 import com.vv.work.user.service.UserInfoService;
 import com.vv.work.util.RespResult;
@@ -19,6 +20,8 @@ import java.util.List;
 public class UserInfoController {
     @Autowired
     UserInfoService userInfoService;
+    @Autowired
+    UserInfoMapper userInfoMapper;
 
     /***
      * 增加用户信息
@@ -75,4 +78,18 @@ public class UserInfoController {
         Page<UserInfo> userInfoPage = userInfoService.queryPageList(currentPage,size,brand);
         return RespResult.ok(userInfoPage);
     }
+
+    @GetMapping("/test")
+    public RespResult<UserInfo> getTest(){
+        String category = "协同";
+        List<UserInfo> list = userInfoMapper.testMeetingInfo(category);
+//        List<UserInfo> list2 = userInfoMapper.testMeetingInfo2(category);
+//        List<UserInfo> list3 = userInfoMapper.testMeetingInfo3(category);
+//        List<UserInfo> list4 = userInfoMapper.testMeetingInfo4(category);
+//        List<UserInfo> list5 = userInfoMapper.testMeetingInfo5(category);
+//        List<UserInfo> list6 = userInfoMapper.testMeetingInfo6("'%'" + category + "'%'");
+//        List<UserInfo> list7 = userInfoMapper.testMeetingInfo7(category);
+        return RespResult.ok("xx");
+    }
+
 }

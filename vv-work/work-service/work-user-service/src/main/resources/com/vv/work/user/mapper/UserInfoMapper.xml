@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vv.work.user.mapper.UserInfoMapper">
+
+    <select id="testMeetingInfo" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category = #{category}
+    </select>
+
+    <!--无论是单个还是成对都报错（SQL异常）-->
+    <select id="testMeetingInfo2" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category like '%'${category}'%'
+    </select>
+    <!--单个报错（SQL异常），成对正常-->
+    <select id="testMeetingInfo3" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category like '%${category}%'
+    </select>
+    <!--无论是单个还是成对都异常（SQL异常），但不报错-->
+    <select id="testMeetingInfo4" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category like '%'#{category}'%'
+    </select>
+    <!--无论是单个还是成对都报错（程序语法报错）-->
+    <select id="testMeetingInfo5" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM meeting_info
+        WHERE category like '%#{category}%'
+    </select>
+    <!--程序拼接好，无论单个还是成对都正常-->
+    <select id="testMeetingInfo6" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category like #{category}
+    </select>
+    <!--SQL函数拼接，无论单个还是成对都正常-->
+    <select id="testMeetingInfo7" resultType="com.vv.work.user.model.UserInfo">
+        SELECT * FROM user_info
+        WHERE category like concat('%', #{category}, '%')
+    </select>
+
+</mapper>
