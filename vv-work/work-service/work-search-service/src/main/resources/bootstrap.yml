@@ -1,0 +1,21 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: work-search
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+      discovery:
+        #Nacos的注册地址
+        server-addr: 127.0.0.1:8848
+  #Elasticsearch服务配置 6.8.12
+  elasticsearch:
+    rest:
+      uris: http://192.168.244.128:9200
+#日志配置
+logging:
+  pattern:
+    console: "%msg%n"
